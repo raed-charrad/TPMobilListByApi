@@ -3,17 +3,27 @@ package com.example.listbyapi
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
 internal class CustomAdapter(private var data: MutableList<Offre>): RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
+    var onItemClick : ((Offre)-> Unit)? = null
     internal inner class MyViewHolder (view : View) : RecyclerView.ViewHolder(view) {
         var intitule :TextView = view.findViewById(R.id.intitulé)
         var specialite : TextView = view.findViewById(R.id.specialité)
         var sosiete : TextView = view.findViewById(R.id.société)
         var nbpostes : TextView = view.findViewById(R.id.nbpostes)
         var pays : TextView = view.findViewById(R.id.pays)
+        init {
+            view.setOnClickListener {
+                onItemClick?.invoke(data[adapterPosition])
+            }
+        }
 
     }
 
