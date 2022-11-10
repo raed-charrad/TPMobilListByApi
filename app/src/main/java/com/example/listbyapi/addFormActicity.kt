@@ -25,6 +25,20 @@ class addFormActicity : AppCompatActivity() {
         pays = findViewById(R.id.pays)
         nbpostes = findViewById(R.id.nbpostes)
         btn = findViewById(R.id.submit)
+        val intent = intent
+        val id = intent.getIntExtra("id",0)
+        val intituleV = intent.getStringExtra("intitule")
+        val specialitéV = intent.getStringExtra("specialité")
+        val sociétéV = intent.getStringExtra("société")
+        val paysV = intent.getStringExtra("pays")
+        val nbpostesV = intent.getIntExtra("nbpostes",0)
+        if (id!=0){
+            intitule.setText(intituleV)
+            specialite.setText(specialitéV)
+            societe.setText(sociétéV)
+            pays.setText(paysV)
+            nbpostes.setText(nbpostesV.toString())
+        }
         btn.setOnClickListener{
             val offre = Offre(
                 intitulé = intitule.text.toString(),
@@ -36,7 +50,11 @@ class addFormActicity : AppCompatActivity() {
             val scope = CoroutineScope(Dispatchers.Main)
             scope.launch {
                 try{
-                    Apiclient.apiService.addOffer(offre)
+                    if (id!=0){
+                        Apiclient.apiService.updateOffer(id,offre)
+                    }else {
+                        Apiclient.apiService.addOffer(offre)
+                    }
                     finish()
                 } catch (e: Exception) {
                     Log.e("Error",e.message.toString())

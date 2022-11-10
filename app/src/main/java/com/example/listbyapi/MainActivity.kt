@@ -96,6 +96,16 @@ class MainActivity : AppCompatActivity() {
             intent = android.content.Intent(this,addFormActicity::class.java)
             resultLauncher.launch(intent)
         }
+        update.setOnClickListener{
+            intent = android.content.Intent(this,addFormActicity::class.java)
+            intent.putExtra("id",selectedItem!!.id)
+            intent.putExtra("intitule",selectedItem!!.intitulé)
+            intent.putExtra("specialité",selectedItem!!.specialité)
+            intent.putExtra("société",selectedItem!!.société)
+            intent.putExtra("nbpostes",selectedItem!!.nbpostes)
+            intent.putExtra("pays",selectedItem!!.pays)
+            resultLauncher.launch(intent)
+        }
 
 
 
